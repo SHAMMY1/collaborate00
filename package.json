@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/SHAMMY1/collaborate/issues"
   },
-  "homepage": "https://github.com/SHAMMY1/collaborate#readme"
+  "homepage": "https://github.com/SHAMMY1/collaborate#readme",
+  "dependencies": {
+    "express": "^4.15.3"
+  }
 }
