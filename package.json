@@ -17,12 +17,14 @@
   },
   "homepage": "https://github.com/SHAMMY1/collaborate#readme",
   "dependencies": {
+    "browser-sync": "^2.18.13",
     "express": "^4.15.3",
     "gulp": "^3.9.1"
   },
   "devDependencies": {
     "babel-eslint": "^7.2.3",
     "eslint": "^4.3.0",
-    "eslint-config-google": "^0.9.1"
+    "eslint-config-google": "^0.9.1",
+    "gulp-nodemon": "^2.2.1"
   }
 }
