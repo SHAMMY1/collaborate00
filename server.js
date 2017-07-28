@@ -1,8 +1,18 @@
-const app = require('express')();
+const express = require('express');
+const app = express();
+app.use('/', express.static('./public'));
 
 app.get('/', (req, res) => {
     res.send(`
-        <h1>COLLABORATE<\h1>
+        <!DOCTYPE html>
+        <html>
+        <head>
+        <title>Collaborate</title>
+        </head>
+        <body>
+        <h1>COLLABORATE</h1>
+        </body>
+        </html>
     `);
 });
 
