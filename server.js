@@ -1,19 +1,13 @@
 const express = require('express');
 const app = express();
+
+app.set('view engine', 'pug');
+app.set('views', './views');
+
 app.use('/', express.static('./public'));
 
 app.get('/', (req, res) => {
-    res.send(`
-        <!DOCTYPE html>
-        <html>
-        <head>
-        <title>Collaborate</title>
-        </head>
-        <body>
-        <h1>COLLABORATE</h1>
-        </body>
-        </html>
-    `);
+    res.render('home');
 });
 
 app.listen(3000, () => {

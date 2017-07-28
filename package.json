@@ -19,7 +19,8 @@
   "dependencies": {
     "browser-sync": "^2.18.13",
     "express": "^4.15.3",
-    "gulp": "^3.9.1"
+    "gulp": "^3.9.1",
+    "pug": "^2.0.0-rc.2"
   },
   "devDependencies": {
     "babel-eslint": "^7.2.3",
