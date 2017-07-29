@@ -1,0 +1,31 @@
+{
+  "name": "collaborate",
+  "version": "0.0.1",
+  "description": "Telerik Academy node.js team eork project",
+  "main": "server.js",
+  "scripts": {
+    "test": "gulp test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SHAMMY1/collaborate.git"
+  },
+  "author": "SHAMMY1",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/SHAMMY1/collaborate/issues"
+  },
+  "homepage": "https://github.com/SHAMMY1/collaborate#readme",
+  "dependencies": {
+    "browser-sync": "^2.18.13",
+    "express": "^4.15.3",
+    "gulp": "^3.9.1",
+    "pug": "^2.0.0-rc.2"
+  },
+  "devDependencies": {
+    "babel-eslint": "^7.2.3",
+    "eslint": "^4.3.0",
+    "eslint-config-google": "^0.9.1",
+    "gulp-nodemon": "^2.2.1"
+  }
+}
