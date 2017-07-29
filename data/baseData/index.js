@@ -1,1 +1,1 @@
-module.exports = require('./badeData');
+module.exports = require('./baseData');

@@ -1,15 +1,11 @@
-const express = require('express');
-const app = express();
-
-app.set('view engine', 'pug');
-app.set('views', './views');
-
-app.use('/', express.static('./public'));
-
-app.get('/', (req, res) => {
-    res.render('home');
-});
-
-app.listen(3000, () => {
-    console.log('App listening on port 3000!');
-});
+require('./fakeDb').init()
+    .then((db) => require('./data').init(db))
+    .then((data) => require('./app').init(data))
+    .then((app) => {
+        app.listen(3000, () => {
+            console.log('App listening on port 3000!');
+        });
+    })
+    .catch((err) => {
+        console.log(err);
+    });
