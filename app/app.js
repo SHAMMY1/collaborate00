@@ -7,16 +7,7 @@ const init = (data) => {
 
     app.use('/', express.static('./public'));
 
-    app.get('/', (req, res) => {
-        res.render('home');
-    });
-
-    app.get('/users', (req, res) => {
-        data.users.getAll()
-            .then((users) => {
-                res.json(users);
-            });
-    });
+    require('./routes').atachTo(app, data);
 
     return app;
 };
