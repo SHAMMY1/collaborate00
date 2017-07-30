@@ -19,8 +19,17 @@ const users = {
             },
         };
     },
-    findOne({ username }) {
-        const user = usersDb.find((dbUser) => dbUser.username === username);
+    findOne(props) {
+        const user = usersDb.find((dbUser) => {
+            let isCorrectDbUser = true;
+            Object.keys(props).forEach((prop) => {
+                if (dbUser[prop] && dbUser[prop] !== props[prop]) {
+                    isCorrectDbUser = false;
+                    return;
+                }
+            });
+            return isCorrectDbUser;
+        });
         return Promise.resolve(user);
     },
     insert(model) {
