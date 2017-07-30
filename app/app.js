@@ -17,6 +17,10 @@ const init = (data) => {
     app.use('/', express.static('./public'));
 
     // setup session
+    app.use(cookieParser());
+    app.use(bodyParser.json());
+    app.use(bodyParser.urlencoded({ extended: true }));
+    app.use(session({ secret: 'black magic' }));
 
     // setup passport
 
