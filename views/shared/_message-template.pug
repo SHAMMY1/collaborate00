@@ -1,0 +1,20 @@
+//- <div class="alert alert-success" role="alert">
+//-   <strong>Well done!</strong> You successfully read <a href="#" class="alert-link">this important alert message</a>.
+//- </div>
+
+#messages
+    each type in Object.keys(messages)
+        case type 
+            when 'error'
+                -var alertType = 'danger'
+                -var alertMsg = ' Oh snap! '
+            when 'info'
+                -var alertType = 'info'
+                -var alertMsg = ' Heads up!! '                
+            when 'success'
+                -var alertType = 'success'
+                -var alertMsg = ' Well done! '                
+        each message in messages[type]
+            div(class="alert alert-" + alertType)
+                strong=alertMsg
+                |  #{message}

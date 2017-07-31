@@ -1,7 +1,12 @@
 extends ../shared/_master
 
 block content
-    form(action="/users/register" method='POST')
-        input(type="text" placeholder="Username" name="username")
-        input(type="text" placeholder="Password" name="password")
-        button register
+    .container
+        form(action="/users/register" method='POST')
+            .form-group.row
+                label.col-sm-3.col-md-2.col-xl-1(for="username") Username: 
+                input.col-sm-9.col-md-10.col-xl-11.form-control(type="text" placeholder="Username" name="username" id="username")
+            .form-group.row
+                label.col-sm-3.col-md-2.col-xl-1(for="password") Password: 
+                input.col-sm-9.col-md-10.col-xl-11.form-control(type="text" placeholder="Password" name="password" id="password")
+                button(type="submit").btn.btn-primary Register

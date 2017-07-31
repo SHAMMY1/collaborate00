@@ -19,6 +19,7 @@ const init = (data) => {
 
     // setup static
     app.use('/', express.static('./public'));
+    app.use('/libs', express.static('./node_modules'));
 
     // setup session
     app.use(cookieParser());
@@ -100,7 +101,9 @@ const init = (data) => {
             if (req.isUnauthenticated()) {
                 res.redirect('/users/login');
             }
+
             req.logout();
+            req.flash('info', 'Successfuly log out');
             res.redirect('/');
         })
         .get('/users/register', (req, res) => {
