@@ -6,9 +6,11 @@ html(lang="en")
         meta(http-equiv="X-UA-Compatible", content="ie=edge")
         title Collaborate
         <link rel="stylesheet" href="/libs/bootstrap/dist/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+        <link rel="stylesheet" href="/css/style.css">
+        script(src="/libs/jquery/dist/jquery.min.js")        
         script(src="/js/script.js")
     body
         .container
-            include _navigation
             !=messages('shared/_message-template', locals)
+            include _navigation
             block content
