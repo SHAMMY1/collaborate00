@@ -49,7 +49,9 @@ const init = (data) => {
 
     passport.deserializeUser((id, done) => {
         data.users.findById(id)
-            .then((user) => done(null, user))
+            .then((user) => {
+                return done(null, user);
+            })
             .catch(done);
     });
 
