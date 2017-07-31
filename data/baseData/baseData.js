@@ -18,13 +18,24 @@ class BaseData {
     }
 
     create(model) {
-        if (!this._isModelValid(model)) {
-            return Promise.reject('Invalid model!');
+        const modelValidation = this._isModelValid(model);
+        if (!modelValidation.isModelValid) {
+            return Promise.reject(modelValidation);
         }
-        const result = this.collection.insert(model);
+        let result = this.collection.insert(model);
 
         if (this.modelClass.toViewModel) {
-            return result.then(() => this.modelClass.toViewModel(model));
+            result = result.then(() => this.modelClass.toViewModel(model));
+        }
+
+        return result;
+    }
+
+    findById(id) {
+        let result = this.collection.findOne({ _id: id });
+
+        if (this.modelClass.toViewModel) {
+            result = result.then((model) => this.modelClass.toViewModel(model));
         }
 
         return result;
@@ -35,7 +46,7 @@ class BaseData {
     }
 
     _isModelValid(model) {
-        return this.validator.isValid(model);
+        return this.validator.validateModel(model);
     }
 }
 

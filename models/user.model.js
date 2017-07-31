@@ -1,6 +1,62 @@
 const baseModel = require('./baseModel');
+const validator = {
+    username(username) {
+        let isValid = true;
+        let msg = 'Username is valid';
+        if (!username ||
+            username.length === 0 ||
+            [].every.call(username, (c) => c === ' ')) {
+            isValid = false;
+            msg = 'Username cannot be empty or whaisepace!';
+        } else if (username.length < 3 || username.length > 20) {
+            isValid = false;
+            msg = 'Username must be betwin 3 and 20 characters long';
+        }
+        return {
+            isValid,
+            msg,
+        };
+    },
+
+    password(password) {
+        let isValid = true;
+        let msg = 'Password is valid';
+
+        if (!password ||
+            password.length === 0 ||
+            [].every.call(password, (c) => c === ' ')) {
+            isValid = false;
+            msg = 'Password cannot be empty or whaisepace!';
+        } else if (password.length < 3 || password.length > 20) {
+            isValid = false;
+            msg = 'Password must be betwin 3 and 20 characters long';
+        }
+        return {
+            isValid,
+            msg,
+        };
+    },
+};
 
 class User extends baseModel {
+    static validateModel(model) {
+        const validations = Object.keys(validator).reduce((result, prop) => {
+            const currentValidator = validator[prop];
+            const propertyToValidate = model[prop];
+            const currentValidation = currentValidator(propertyToValidate);
+
+            result[prop] = currentValidation;
+
+            if (!currentValidation.isValid) {
+                result.isModelValid = false;
+            }
+
+            return result;
+        }, { isModelValid: true });
+
+        return validations;
+    }
+
     static toViewModel(model) {
         const viewModel = new User();
         Object.keys(model).forEach((prop) => {

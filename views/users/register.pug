@@ -1,0 +1,7 @@
+extends ../shared/_master
+
+block content
+    form(action="/users/register" method='POST')
+        input(type="text" placeholder="Username" name="username")
+        input(type="text" placeholder="Password" name="password")
+        button register
