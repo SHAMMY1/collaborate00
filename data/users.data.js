@@ -6,6 +6,22 @@ class UsersData extends BaseData {
         super(db, User, User);
     }
 
+    findByUsername(username) {
+        let result = this.collection.findOne({ username });
+
+        if (this.modelClass.toViewModel) {
+            result = result.then((model) => {
+                if (model) {
+                    return this.modelClass.toViewModel(model);
+                }
+
+                return model;
+            });
+        }
+
+        return result;
+    }
+
     checkPassword(username, password) {
         return this.collection.findOne({
             username,
