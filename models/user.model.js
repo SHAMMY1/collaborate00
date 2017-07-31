@@ -3,13 +3,12 @@ const validator = {
     username(username) {
         let isValid = true;
         let msg = 'Username is valid';
-
-        if (!username || [].every.call(username, (c) => c === ' ')) {
+        if (!username ||
+            username.length === 0 ||
+            [].every.call(username, (c) => c === ' ')) {
             isValid = false;
             msg = 'Username cannot be empty or whaisepace!';
-        }
-
-        if (username.length < 3 || username.length > 20) {
+        } else if (username.length < 3 || username.length > 20) {
             isValid = false;
             msg = 'Username must be betwin 3 and 20 characters long';
         }
@@ -20,15 +19,15 @@ const validator = {
     },
 
     password(password) {
-        const isValid = true;
-        const msg = 'Password is valid';
+        let isValid = true;
+        let msg = 'Password is valid';
 
-        if (!password || [].every.call(password, (c) => c === ' ')) {
+        if (!password ||
+            password.length === 0 ||
+            [].every.call(password, (c) => c === ' ')) {
             isValid = false;
             msg = 'Password cannot be empty or whaisepace!';
-        }
-
-        if (password.length < 3 || password.length > 20) {
+        } else if (password.length < 3 || password.length > 20) {
             isValid = false;
             msg = 'Password must be betwin 3 and 20 characters long';
         }
