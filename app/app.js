@@ -49,7 +49,9 @@ const init = (data) => {
 
     passport.deserializeUser((id, done) => {
         data.users.findById(id)
-            .then((user) => done(null, user))
+            .then((user) => {
+                return done(null, user);
+            })
             .catch(done);
     });
 
@@ -73,6 +75,7 @@ const init = (data) => {
         })
         .get('/users/info', (req, res) => {
             if (!req.isAuthenticated()) {
+                req.flash('error', 'Must be logedin to see this page!');
                 res.redirect('/users/login');
                 return;
             }
@@ -135,7 +138,8 @@ const init = (data) => {
                     });
                 })
                 .then((dbUser) => {
-                    req.flash('info', `${req.user.username} successfuly register`);
+                    const username = req.user.username;
+                    req.flash('info', `${username} successfuly register`);
                     res.redirect('/users/info');
                 })
                 .catch((err) => {
