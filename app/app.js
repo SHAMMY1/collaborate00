@@ -75,6 +75,7 @@ const init = (data) => {
         })
         .get('/users/info', (req, res) => {
             if (!req.isAuthenticated()) {
+                req.flash('error', 'Must be logedin to see this page!');
                 res.redirect('/users/login');
                 return;
             }
