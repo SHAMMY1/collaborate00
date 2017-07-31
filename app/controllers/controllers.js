@@ -5,7 +5,7 @@ const path = require('path');
 
 const CONTROLLER_SUFIX = '.controller';
 
-const init = (data) => {
+const init = (data, passport) => {
     const controllers = {};
 
     fs.readdirSync(__dirname)
@@ -13,7 +13,10 @@ const init = (data) => {
         .forEach((f) => {
             const name = f.substring(0, f.indexOf(CONTROLLER_SUFIX));
 
-            controllers[name] = require(path.join(__dirname, f))(data);
+            controllers[name] = require(path.join(__dirname, f))({
+                data,
+                passport,
+            });
         });
 
     return controllers;
