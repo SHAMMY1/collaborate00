@@ -135,7 +135,8 @@ const init = (data) => {
                     });
                 })
                 .then((dbUser) => {
-                    req.flash('info', `${req.user.username} successfuly register`);
+                    const username = req.user.username;
+                    req.flash('info', `${username} successfuly register`);
                     res.redirect('/users/info');
                 })
                 .catch((err) => {
