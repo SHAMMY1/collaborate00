@@ -6,8 +6,12 @@ const init = (data) => {
     const bodyParser = require('body-parser');
     const cookieParser = require('cookie-parser');
     const session = require('express-session');
+
     const passport = require('passport');
     const LocalStrategy = require('passport-local');
+
+    const flash = require('connect-flash');
+    const messages = require('express-messages');
 
     // setup view engine
     app.set('view engine', 'pug');
@@ -52,13 +56,21 @@ const init = (data) => {
     app.use(passport.initialize());
     app.use(passport.session());
 
+    // setup flash messages
+    app.use(flash());
+    app.use((req, res, next) => {
+        res.locals.messages = messages(req, res);
+        next();
+    });
+
     // setup routes
     require('./routes').atachTo(app, controllers);
 
     // setup auth test rouths
-    app.get('/users/login', (req, res) => {
-        res.render('users/login');
-    })
+    app
+        .get('/users/login', (req, res) => {
+            res.render('users/login');
+        })
         .get('/users/info', (req, res) => {
             if (!req.isAuthenticated()) {
                 res.redirect('/users/login');
@@ -67,12 +79,20 @@ const init = (data) => {
 
             res.render('users/info', { model: req.user });
         })
-        .post('/users/login', passport.authenticate('local', {
-            // failureFlash: true,
-            failureRedirect: '/users/login',
-            // successFlash: true,
-            successRedirect: '/users/info',
-        }))
+        .post('/users/login', (req, res, next) => {
+            if (req.isAuthenticated()) {
+                req.logout();
+            }
+
+            next();
+        }, (req, res, next) => {
+            passport.authenticate('local', {
+                failureFlash: true,
+                failureRedirect: '/users/login',
+                successFlash: `${req.body.username} loged in`,
+                successRedirect: '/users/info',
+            })(req, res, next);
+        })
         .get('/users/logout', (req, res) => {
             if (req.isUnauthenticated()) {
                 res.redirect('/users/login');
@@ -84,6 +104,9 @@ const init = (data) => {
             res.render('users/register');
         })
         .post('/users/register', (req, res) => {
+            if (req.isAuthenticated()) {
+                req.logout();
+            }
             const newUser = req.body;
 
             data.users.findByUsername(newUser.username)
@@ -112,10 +135,16 @@ const init = (data) => {
                     });
                 })
                 .then((dbUser) => {
+                    req.flash('info', `${req.user.username} successfuly register`);
                     res.redirect('/users/info');
                 })
                 .catch((err) => {
                     if (err.isModelValid === false) {
+                        Object.keys(err).forEach((key) => {
+                            if (!err[key].isValid) {
+                                req.flash('error', err[key].msg);
+                            }
+                        });
                         return res.redirect('/users/register');
                     }
                     return res.render('error', { model: err });

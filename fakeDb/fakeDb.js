@@ -9,6 +9,11 @@ const usersDb = [
         username: 'Gosho',
         password: 'Gosho',
     },
+    {
+        _id: '2',
+        username: 'sss',
+        password: 'sss',
+    },
 ];
 
 const users = {
